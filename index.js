@@ -1,6 +1,7 @@
 import express from "express";
 import Discord from "discord.js"; //import discord.js
 import * as dotenv from "dotenv";
+import cors from "cors";
 
 dotenv.config();
 
@@ -11,6 +12,7 @@ const client = new Discord.Client({
 const PORT = process.env.PORT || 80;
 const app = express();
 app.use(express.json());
+app.use(cors())
 
 const discord = () => {
   client.on("ready", () => {
@@ -28,6 +30,7 @@ app.get("/", (req, res) => {
 });
 
 app.post("/", async (req, res) => {
+  console.log(req.body)
   const { email, name, message, channelId } = req.body;
 
   if(!(email && name && message && channelId)) {
