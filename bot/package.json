@@ -1,5 +1,5 @@
 {
-  "name": "discord-bot",
+  "name": "bontact",
   "version": "1.0.0",
   "description": "discrod contact manager",
   "main": "index.js",
@@ -11,10 +11,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@discordjs/rest": "^0.2.0-canary.0",
-    "discord-api-types": "^0.26.0",
     "discord.js": "^13.4.0",
     "dotenv": "^10.0.0",
     "express": "^4.17.2"
+  },
+  "engines": {
+    "node": "14.x"
   }
 }
