@@ -1,7 +1,6 @@
 import express from "express";
 import Discord from "discord.js"; //import discord.js
 import * as dotenv from "dotenv";
-import dayjs from 'dayjs'
 
 dotenv.config();
 
@@ -40,7 +39,7 @@ app.post("/", async (req, res) => {
 
   const channel = await client.channels.fetch(channelId);
   channel.send(
-    `📨📨📨📨📨📨📨📨📨📨📨📨📨📨📨📨📨📨📨📨📨 \n**${name}** send a new message through your contact form. \nemail: **${email}** \nmessage: ${message} \ntime: ${dayjs(new Date()).format('h:mm A - DD MMM, YYYY')}`
+    `📨📨📨📨📨📨📨📨📨📨📨📨📨📨📨📨📨📨📨📨📨 \n**${name}** send a new message through your contact form. \nemail: **${email}** \nmessage: ${message}`
   );
 
   res.json({
