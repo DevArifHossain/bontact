@@ -2,6 +2,7 @@ import express from "express";
 import Discord from "discord.js"; //import discord.js
 import * as dotenv from "dotenv";
 import cors from "cors";
+import path from "path";
 
 dotenv.config();
 
@@ -12,7 +13,7 @@ const client = new Discord.Client({
 const PORT = process.env.PORT || 80;
 const app = express();
 app.use(express.json());
-app.use(cors())
+app.use(cors());
 
 const discord = () => {
   client.on("ready", () => {
@@ -24,21 +25,21 @@ const discord = () => {
 discord();
 
 app.get("/", (req, res) => {
-  res.json({
-    msg: "Welcome to Bontact!!",
-  });
+  var __dirname = path.resolve();
+  console.log(__dirname)
+  res.sendFile(path.join(__dirname, "/index.html"));
 });
 
 app.post("/", async (req, res) => {
-  console.log(req.body)
+  console.log(req.body);
   const { email, name, message, channelId } = req.body;
 
-  if(!(email && name && message && channelId)) {
+  if (!(email && name && message && channelId)) {
     res.status(400).json({
       sucess: false,
       msg: "name, email, message and channelId is require!",
     });
-  } 
+  }
 
   const channel = await client.channels.fetch(channelId);
   channel.send(
