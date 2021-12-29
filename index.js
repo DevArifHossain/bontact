@@ -8,7 +8,7 @@ const client = new Discord.Client({
   intents: [Discord.Intents.FLAGS.GUILDS, Discord.Intents.FLAGS.GUILD_MESSAGES],
 });
 
-const PORT = process.env.PORT || 80
+const PORT = process.env.PORT || 80;
 const app = express();
 app.use(express.json());
 
@@ -22,9 +22,9 @@ const discord = () => {
 discord();
 
 app.get("/", (req, res) => {
-  console.log("res", res);
-
-  res.send("HI from arif");
+  res.json({
+    msg: 'Welcome to Bontact!!'
+  });
 });
 
 app.post("/", async (req, res) => {
@@ -32,10 +32,12 @@ app.post("/", async (req, res) => {
 
   const channel = await client.channels.fetch(process.env.DISCORD_CHANNEL_ID);
   channel.send(
-    `${name} send a new message through sellify contact from. \nemail: ${email} \nmessage: ${message} \n------------`
+    `📨📨📨📨📨📨📨📨📨📨📨📨📨📨📨📨📨📨📨📨📨 \n${name} send a new message through sellify contact from. \nemail: ${email} \nmessage: ${message}`
   );
 
-  res.send("this is a post request");
+  res.json({
+    msg: "wait for the discord message!!",
+  });
 });
 
 app.listen(PORT, () => {
