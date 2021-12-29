@@ -1,6 +1,7 @@
 import express from "express";
 import Discord from "discord.js"; //import discord.js
 import * as dotenv from "dotenv";
+import dayjs from 'dayjs'
 
 dotenv.config();
 
@@ -23,20 +24,28 @@ discord();
 
 app.get("/", (req, res) => {
   res.json({
-    msg: 'Welcome to Bontact!!'
+    msg: "Welcome to Bontact!!",
   });
 });
 
 app.post("/", async (req, res) => {
-  const { email, name, message } = req.body;
+  const { email, name, message, channelId } = req.body;
 
-  const channel = await client.channels.fetch(process.env.DISCORD_CHANNEL_ID);
+  if(!(email && name && message && channelId)) {
+    res.status(400).json({
+      sucess: false,
+      msg: "name, email, message and channelId is require!",
+    });
+  } 
+
+  const channel = await client.channels.fetch(channelId);
   channel.send(
-    `📨📨📨📨📨📨📨📨📨📨📨📨📨📨📨📨📨📨📨📨📨 \n${name} send a new message through sellify contact from. \nemail: ${email} \nmessage: ${message}`
+    `📨📨📨📨📨📨📨📨📨📨📨📨📨📨📨📨📨📨📨📨📨 \n**${name}** send a new message through your contact form. \nemail: **${email}** \nmessage: ${message} \ntime: ${dayjs(new Date()).format('h:mm A - DD MMM, YYYY')}`
   );
 
   res.json({
-    msg: "wait for the discord message!!",
+    sucess: true,
+    msg: "message sent to discord!!",
   });
 });
 
