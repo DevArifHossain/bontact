@@ -8,6 +8,7 @@ const client = new Discord.Client({
   intents: [Discord.Intents.FLAGS.GUILDS, Discord.Intents.FLAGS.GUILD_MESSAGES],
 });
 
+const PORT = process.env.PORT || 80
 const app = express();
 app.use(express.json());
 
@@ -37,6 +38,6 @@ app.post("/", async (req, res) => {
   res.send("this is a post request");
 });
 
-app.listen(5000, () => {
-  console.log("the app is running on port 5000");
+app.listen(PORT, () => {
+  console.log(`the app is running on port ${PORT}`);
 });
