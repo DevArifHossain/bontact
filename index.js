@@ -34,10 +34,10 @@ app.post("/", async (req, res) => {
   console.log(req.body);
   const { email, name, message, channelId } = req.body;
 
-  if (!(email && name && message && channelId)) {
+  if (!(message && channelId)) {
     res.status(400).json({
       sucess: false,
-      msg: "name, email, message and channelId is require!",
+      msg: "message and channelId is require!",
     });
   }
 
