@@ -33,7 +33,14 @@ app.get("/", (req, res) => {
 app.post("/", async (req, res) => {
   console.log(req.body);
   const { email, name, message, channelId } = req.body;
-
+  
+  // add value of pre_message if provided, else it stays the default
+  try {
+    const { pre_message } = req.body
+  } catch(err) {
+    const pre_message = "sent a new message through your contact form.";
+  }
+  
   if (!(email && name && message && channelId)) {
     res.status(400).json({
       sucess: false,
@@ -42,10 +49,18 @@ app.post("/", async (req, res) => {
   }
 
   const channel = await client.channels.fetch(channelId);
-  channel.send(
-    `📨📨📨📨📨📨📨 \n**${name}** send a new message through your contact form. \nemail: **${email}** \nmessage: ${message}`
-  );
 
+  // if empty string is passed to email
+  if (!email){
+    channel.send(
+      `📨📨📨📨📨📨📨 \n**${name}** ${pre_message} \nmessage: ${message}`
+    );
+  } else {
+    channel.send(
+      `📨📨📨📨📨📨📨 \n**${name}** ${pre_message} \nemail: **${email}** \nmessage: ${message}`
+    );
+  }
+  
   res.json({
     sucess: true,
     msg: "message sent to discord!!",
