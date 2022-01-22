@@ -43,7 +43,7 @@ app.post("/", async (req, res) => {
 
   const channel = await client.channels.fetch(channelId);
   channel.send(
-    `📨📨📨📨📨📨📨📨📨📨📨📨📨📨📨📨📨📨📨📨📨 \n**${name}** send a new message through your contact form. \nemail: **${email}** \nmessage: ${message}`
+    `📨📨📨📨📨📨📨 \n**${name}** send a new message through your contact form. \nemail: **${email}** \nmessage: ${message}`
   );
 
   res.json({
