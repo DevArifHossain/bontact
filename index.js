@@ -42,10 +42,18 @@ app.post("/", async (req, res) => {
   }
 
   const channel = await client.channels.fetch(channelId);
-  channel.send(
-    `📨📨📨📨📨📨📨 \n**${name}** send a new message through your contact form. \nemail: **${email}** \nmessage: ${message}`
-  );
 
+  // if empty string is passed to email & name, only send the message. else send the default text
+  if (!email && !name){
+    channel.send(
+      `🎉🎉🎉🎉🎉\n${message}`
+    );
+  } else { 
+    channel.send(
+      `📨📨📨📨📨📨📨 \n**${name}** sent a new message through your contact form. \nemail: **${email}** \nmessage: ${message}`
+    );
+  }
+  
   res.json({
     sucess: true,
     msg: "message sent to discord!!",
